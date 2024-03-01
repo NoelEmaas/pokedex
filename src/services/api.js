@@ -56,6 +56,7 @@ export const getPokemonCompleteInfo = async (pokemon) => {
         const pokemonCompleteInfo = {
             ...pokemon,
             height: response.data.height,
+            weight: response.data.weight,
             abilities:  abilitiesData.filter(data => data !== null),
             moves: movesData.filter(data => data !== null),
             specie: specieData,
