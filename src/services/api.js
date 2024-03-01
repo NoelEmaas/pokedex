@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { transformString } from '@/lib/utils';
+import pokemonTypes from '../../data/pokemon_types.json';
 
 const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2';
 const POKEMON_IMAGE_BASE_URL = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full';
@@ -24,7 +25,7 @@ export const getPokemonBasicInfo = async (pokemonName) => {
             id,
             name: response.data.name,
             image: imageURL,
-            types: response.data.types.map(type => type.type.name)
+            types: response.data.types.map(type => transformString(type.type.name))
         }
 
         return pokemonBasicInfo;
@@ -50,6 +51,7 @@ export const getPokemonCompleteInfo = async (pokemon) => {
         const evolutionChain = await getEvolutionSequence(specieData.evolution_chain_url);
         const encounterAreas = await getEncounterAreas(response.data.location_area_encounters);
         const stats = getStats(response);
+        const typesInfo = getTypeInfo(pokemon.types);
 
         const pokemonCompleteInfo = {
             ...pokemon,
@@ -59,9 +61,9 @@ export const getPokemonCompleteInfo = async (pokemon) => {
             specie: specieData,
             evolution_sequence: evolutionChain,
             encounter_areas: encounterAreas,
-            stats
+            stats,
+            typesInfo,
         }
-
         return pokemonCompleteInfo;
     } catch (error) {
         console.error('Error fetching Pokemon complete info:', error);
@@ -162,4 +164,24 @@ const getStats = (pokemon) => {
     });
 
     return stats;
+}
+
+const getTypeInfo = (types) => {
+    const typesInfo = {}
+
+    for (const type of types) {
+        const strengths = pokemonTypes[type].strengths;
+        const weaknesses = pokemonTypes[type].weaknesses;
+        const resistances = pokemonTypes[type].resistances;
+        const vulnerabilities = pokemonTypes[type].vulnerabilities;
+        
+        typesInfo[type] = {
+            strengths,
+            weaknesses,
+            resistances,
+            vulnerabilities
+        };
+    }
+
+    return typesInfo;
 }
