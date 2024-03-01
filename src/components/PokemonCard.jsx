@@ -1,26 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useTypeIconsLoader } from '@/hooks/customPokemonHooks';
 import { transformString } from '@/lib/utils';
 
 const PokemonCard = (props) => {
-    const [icons, setIcons] = useState({});
-
-    useEffect(() => {
-        const importIcon = async (type) => {
-            try {
-                const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
-                setIcons(prevIcons => ({
-                    ...prevIcons,
-                    [type]: iconModule.default
-                }));
-            } catch (error) {
-                console.error(`Error importing image for type '${type}':`, error);
-            }
-        };
-
-        props.types.forEach(type => {
-            importIcon(type);
-        });
-    }, [props.types]);
+    const icons = useTypeIconsLoader(props.types);
     
     return (
         <div className="w-full bg-white border rounded-md">

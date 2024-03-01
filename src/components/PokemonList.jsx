@@ -1,4 +1,4 @@
-import useFetchPokemonList from "@/hooks/customPokemonHooks";
+import { useFetchPokemonList } from "@/hooks/customPokemonHooks";
 import PokemonCard from "@/components/PokemonCard";
 
 const PokemonList = (props) => {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '../services/api';
 
-const useFetchPokemonList = () => {
+export const useFetchPokemonList = () => {
     const [pokemonList, setPokemonList] = useState([]);
 
     useEffect(() => {
@@ -27,4 +27,26 @@ const useFetchPokemonList = () => {
     return pokemonList;
 }
 
-export default useFetchPokemonList;
+export const useTypeIconsLoader = (types) => {
+    const [icons, setIcons] = useState({});
+
+    useEffect(() => {
+        const importIcon = async (type) => {
+            try {
+                const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
+                setIcons(prevIcons => ({
+                    ...prevIcons,
+                    [type]: iconModule.default
+                }));
+            } catch (error) {
+                console.error(`Error importing image for type '${type}':`, error);
+            }
+        };
+
+        types.forEach(type => {
+            importIcon(type);
+        });
+    }, [types]);
+
+    return icons;
+}
