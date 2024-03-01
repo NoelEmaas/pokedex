@@ -1,0 +1,111 @@
+{
+    "_comment" : "The data in this file is based from: https://www.eurogamer.net/pokemon-go-type-chart-effectiveness-weaknesses",
+    "Normal": {
+      "weaknesses": ["Rock", "Ghost", "Steel"],
+      "strengths": [],
+      "resistances": ["Ghost"],
+      "vulnerabilities": ["Fighting"]
+    },
+    "Fire": {
+      "weaknesses": ["Water", "Rock", "Dragon", "Fire"],
+      "strengths": ["Grass", "Ice", "Bug", "Steel"],
+      "resistances": ["Fire", "Grass", "Ice", "Bug", "Steel"],
+      "vulnerabilities": ["Ground", "Rock", "Water"]
+    },
+    "Water": {
+      "weaknesses": ["Water", "Grass", "Dragon"],
+      "strengths": ["Fire", "Ground", "Rock"],
+      "resistances": ["Water", "Fire", "Ice", "Steel"],
+      "vulnerabilities": ["Grass", "Electric"]
+    },
+    "Electric": {
+      "weaknesses": ["Ground", "Grass", "Electric", "Dragon"],
+      "strengths": ["Flying", "Water"],
+      "resistances": ["Electric", "Flying", "Steel"],
+      "vulnerabilities": ["Ground"]
+    },
+    "Grass": {
+      "weaknesses": ["Grass", "Fire", "Poison", "Flying", "Bug", "Steel"],
+      "strengths": ["Water", "Ground", "Rock"],
+      "resistances": ["Water", "Electric", "Grass", "Ground"],
+      "vulnerabilities": ["Flying", "Poison", "Bug", "Fire", "Ice"]
+    },
+    "Ice": {
+      "weaknesses": ["Fire", "Water", "Ice", "Steel"],
+      "strengths": ["Grass", "Ground", "Flying", "Dragon"],
+      "resistances": ["Ice"],
+      "vulnerabilities": ["Fighting", "Rock", "Steel", "Fire"]
+    },
+    "Fighting": {
+      "weaknesses": ["Flying", "Psychic", "Fairy", "Poison", "Bug", "Ghost"],
+      "strengths": ["Normal", "Ice", "Rock", "Dark", "Steel"],
+      "resistances": ["Bug", "Rock", "Dark"],
+      "vulnerabilities": ["Flying", "Psychic", "Fairy"]
+    },
+    "Poison": {
+      "weaknesses": ["Ground", "Ground", "Rock", "Ghost", "Steel"],
+      "strengths": ["Grass", "Fairy"],
+      "resistances": ["Fighting", "Poison", "Grass", "Fairy"],
+      "vulnerabilities": ["Ground", "Psychic"]
+    },
+    "Ground": {
+      "weaknesses": ["Flying", "Grass", "Bug"],
+      "strengths": ["Fire", "Electric", "Poison", "Rock", "Steel"],
+      "resistances": ["Poison", "Rock", "Electric"],
+      "vulnerabilities": ["Water", "Grass", "Ice"]
+    },
+    "Flying": {
+      "weaknesses": ["Electric", "Rock", "Steel"],
+      "strengths": ["Grass", "Fighting, Bug"],
+      "resistances": ["Grass", "Fighting", "Bug", "Ground"],
+      "vulnerabilities": ["Electric", "Ice", "Rock"]
+    },
+    "Psychic": {
+      "weaknesses": ["Steel", "Psychic", "Dark"],
+      "strengths": ["Fighting", "Poison"],
+      "resistances": ["Fighting", "Psychic"],
+      "vulnerabilities": ["Bug", "Ghost", "Dark"]
+    },
+    "Bug": {
+      "weaknesses": ["Fire", "Fighting", "Poison", "Flying", "Ghost", "Steel", "Fairy"],
+      "strengths": ["Grass", "Psychic", "Dark"],
+      "resistances": ["Fighting", "Ground", "Grass"],
+      "vulnerabilities": ["Fire", "Flying", "Rock"]
+    },
+    "Rock": {
+      "weaknesses": ["Water", "Grass", "Fighting", "Ground", "Steel"],
+      "strengths": ["Fire", "Ice", "Flying", "Bug"],
+      "resistances": ["Normal", "Fire", "Poison", "Flying"],
+      "vulnerabilities": ["Water", "Grass", "Fighting", "Ground", "Steel"]
+    },
+    "Ghost": {
+      "weaknesses": ["Ghost", "Dark"],
+      "strengths": ["Psychic", "Ghost"],
+      "resistances": ["Poison", "Bug", "Normal", "Fighting"],
+      "vulnerabilities": ["Ghost", "Dark"]
+    },
+    "Dragon": {
+      "weaknesses": ["Steel", "Fairy"],
+      "strengths": ["Dragon"],
+      "resistances": ["Fire", "Water", "Electric", "Grass"],
+      "vulnerabilities": ["Ice", "Dragon", "Fairy"]
+    },
+    "Dark": {
+      "weaknesses": ["Fighting", "Dark", "Fairy"],
+      "strengths": ["Ghost", "Psychic"],
+      "resistances": ["Ghost", "Psychic", "Dark"],
+      "vulnerabilities": ["Fighting", "Bug", "Fairy"]
+    },
+    "Steel": {
+      "weaknesses": ["Fire", "Steel", "Electric", "Water"],
+      "strengths": ["Ice", "Rock", "Fairy"],
+      "resistances": ["Normal", "Grass", "Ice", "Flying", "Psychic", "Bug", "Rock", "Dragon", "Steel", "Fairy"],
+      "vulnerabilities": ["Fire", "Fighting", "Ground"]
+    },
+    "Fairy": {
+      "weaknesses": ["Poison", "Steel", "Fire"],
+      "strengths": ["Fighting", "Dragon", "Dark"],
+      "resistances": ["Fighting", "Bug", "Dark", "Dragon"],
+      "vulnerabilities": ["Poison", "Steel"]
+    }
+}
