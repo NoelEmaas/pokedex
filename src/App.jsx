@@ -1,14 +1,11 @@
 import './App.css'
-import { Button } from './components/ui/button'
-import useFetchPokemonList from './hooks/customPokemonHooks';
+import PokemonList from './components/PokemonList';
 
 function App() {
-    const pokemonList = useFetchPokemonList();
-
     return (
-        <>
-            <Button> Hello, World </Button>
-        </>
+        <div className='container'>
+            <PokemonList />
+        </div>
     )
 }
 
