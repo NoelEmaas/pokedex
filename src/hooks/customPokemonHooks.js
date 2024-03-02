@@ -3,14 +3,27 @@ import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '../
 
 export const useFetchPokemonList = (initialLimit) => {
     const [pokemonList, setPokemonList] = useState([]);
+    const [limitResponse, setLimitResponse] = useState([]);
     const [limit, setLimit] = useState(initialLimit);
 
     useEffect(() => {
         const fetchPokemons = async () => {
             try {
-                const response = await getPokemonList(limit);
+                // Check if there's a cached list of pokemons
+                const cachedPokemonList = localStorage.getItem('pokemonList');
+                if (cachedPokemonList) {
+                    setLimitResponse(JSON.parse(cachedPokemonList).slice(0, limit));
+                }
+                // If not, fetch the list from the API and cache it
+                else {
+                    const response = await getPokemonList();
+                    setLimitResponse(response.slice(0, limit));
+                    localStorage.setItem('pokemonList', JSON.stringify(response));
+                }
+
+                // Fetch basic info for each pokemon in the list
                 const list = await Promise.all(
-                    response.map(async (pokemon) => {
+                    limitResponse.map(async (pokemon) => {
                         return await getPokemonBasicInfo(pokemon.name);
                     })
                 );
@@ -21,7 +34,7 @@ export const useFetchPokemonList = (initialLimit) => {
         };
 
         fetchPokemons();
-    }, [limit]);
+    }, [limit, limitResponse]);
 
     const loadMorePokemon = () => {
         const increment = 10;
