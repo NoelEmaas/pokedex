@@ -19,8 +19,8 @@ const Topbar = ({ searchInput, setSearchInput, orderBy, setOrderBy }) => {
     return (
         <div className="w-full border-b topbar pt-[30px] pb-[20px] flex lg:flex-row flex-col justify-between">
             <div className="mb-6 lg:mb-0">
-                <h1 className='pb-4 text-6xl title'>Pokedex</h1>
-                <p>A database of Pokémon information at your fingertips.</p>
+                <h1 className='pb-4 text-5xl md:text-6xl title'>Pokedex</h1>
+                <p className="text-[12px] md:text-base">A database of Pokémon information at your fingertips.</p>
             </div>
             <div className="flex items-end gap-x-4">
                 <Input className="lg:w-[400px] w-full" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchInput}/>
