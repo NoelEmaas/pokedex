@@ -39,7 +39,8 @@ export const useFetchPokemonList = () => {
     useEffect(() => {
         if (searchInput !== '') {
             const filteredList = fullPokemonList.filter(pokemon => 
-                pokemon.name.toLowerCase().includes(searchInput.toLowerCase())
+                pokemon.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+                pokemon.id.padStart(3, "0").includes(searchInput.toLowerCase())
             );
             const fetchList = filteredList.map(async (pokemon) => {
                 return await getPokemonBasicInfo(pokemon.name);
