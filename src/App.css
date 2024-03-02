@@ -1,9 +1,23 @@
+@font-face {
+    font-family: 'Komika'; 
+    src: url('./assets/fonts/Komika.ttf') format('truetype');
+}
+
 .pokemon-card {
     background-image: url('./assets/bg-poke.png');
     background-repeat: no-repeat;
     background-size: cover;
     box-sizing: border-box;
     border: 2px solid #f2f2f2;
+}
+
+.pokemon-name {
+    font-family: 'Komika';
+    text-shadow: 
+        -1px -1px 0 hsla(0, 0%, 0%, 0.3),  
+        1px -1px 0 hsla(0, 0%, 0%, 0.3),
+        -1px 1px 0 hsla(0, 0%, 0%, 0.3),
+        1px 1px 0 hsla(0, 0%, 0%, 0.3); 
 }
 
 .pokemon-card:hover {

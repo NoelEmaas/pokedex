@@ -35,7 +35,7 @@ const PokemonCard = (props) => {
                 <img src={props.image} alt={props.name} className="pokemon-img" />
             </div>
             <div className="flex flex-row items-center justify-between px-4 py-3 rounded-b-lg" style={{ backgroundColor: color }}>
-                <h1 className="font-bold text-black text-opacity-65">{transformString(props.name)}</h1>
+                <h1 className="font-bold text-white text-opacity-90 pokemon-name">{transformString(props.name)}</h1>
                 <div className="flex items-center px-2 py-1 bg-black rounded-md bg-opacity-30">
                     <h1 className="text-sm font-medium text-white">#{String(props.id).padStart(3, "0")}</h1>
                 </div>
