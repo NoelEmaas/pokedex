@@ -1,0 +1,81 @@
+.pokemon-card:hover {
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+}
+
+.fire-card:hover {
+    box-shadow: 0 0 10px 0 #FD7D24;
+}
+
+.water-card:hover {
+    box-shadow: 0 0 10px 0 #4592C4;
+}
+
+.grass-card:hover {
+    box-shadow: 0 0 10px 0 #9BCC50;
+}
+
+.electric-card:hover {
+    box-shadow: 0 0 10px 0 #FFFA07;
+}
+
+.normal-card:hover {
+    box-shadow: 0 0 10px 0 #A4ACAF;
+}
+
+.fighting-card:hover {
+    box-shadow: 0 0 10px 0 #D56723;
+}
+
+.flying-card:hover {
+    box-shadow: 0 0 10px 0 #3DC7EF;
+}
+
+.poison-card:hover {
+    box-shadow: 0 0 10px 0 #B97FC9;
+}
+
+.ground-card:hover {
+    box-shadow: 0 0 10px 0 #F7DE3F;
+}
+
+.rock-card:hover {
+    box-shadow: 0 0 10px 0 #A38C21;
+}
+
+.bug-card:hover {
+    box-shadow: 0 0 10px 0 #729F3F;
+}
+
+.ghost-card:hover {
+    box-shadow: 0 0 10px 0 #7B62A3;
+}
+
+.steel-card:hover {
+    box-shadow: 0 0 10px 0 #9EB7B8;
+}
+
+.fairy-card:hover {
+    box-shadow: 0 0 10px 0 #FDB9E9;
+}
+
+.psychic-card:hover {
+    box-shadow: 0 0 10px 0 #F366B9;
+}
+
+.ice-card:hover {
+    box-shadow: 0 0 10px 0 #51C4E7;
+}
+
+.dragon-card:hover {
+    box-shadow: 0 0 10px 0 #53A4CF;
+}
+
+
+.pokemon-card:hover .pokemon-img {
+    transform: scale(1.15);
+}
+
+.pokemon-img {
+    transition: transform 0.3s;
+}

@@ -19,7 +19,7 @@ const PokemonCard = (props) => {
     }, []); 
 
     return (
-        <div className={`w-full bg-white border rounded-lg pokemon-card`}>
+        <div className={`w-full bg-white border rounded-lg pokemon-card ${props.types[0].toLowerCase()}-card`}>
             <div className="flex flex-row w-full px-2 pt-2 gap-x-2">
                 {props.types.map((type, index) => (
                     <div key={index}>
