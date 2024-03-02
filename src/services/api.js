@@ -53,13 +53,13 @@ export const getPokemonCompleteInfo = async (pokemonID) => {
         const evolutionChain = await getEvolutionSequence(specieData.evolution_chain_url);
         const encounterAreas = await getEncounterAreas(response.data.location_area_encounters);
         const stats = getStats(response);
-        const typesInfo = getTypeInfo(pokemon.types);
+        const types = response.data.types.map(type => transformString(type.type.name))
+        const typesInfo = getTypeInfo(types);
 
         const pokemonCompleteInfo = {
             id,
             name: response.data.name,
             image: imageURL,
-            types: response.data.types.map(type => transformString(type.type.name)),
             height: response.data.height,
             weight: response.data.weight,
             abilities:  abilitiesData.filter(data => data !== null),
@@ -68,6 +68,7 @@ export const getPokemonCompleteInfo = async (pokemonID) => {
             evolution_sequence: evolutionChain,
             encounter_areas: encounterAreas,
             stats,
+            types,
             typesInfo,
         }
         return pokemonCompleteInfo;
