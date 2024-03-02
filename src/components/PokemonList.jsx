@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator"
 
 const PokemonList = (props) => {
-    const { pokemonList, loadMorePokemon } = useFetchPokemonList(10);
+    const { pokemonList, loadMorePokemon, searchInput, setSearchInput } = useFetchPokemonList();
 
     return (
         <div>

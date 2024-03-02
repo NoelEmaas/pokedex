@@ -1,47 +1,58 @@
 import { useState, useEffect } from 'react';
 import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '../services/api';
 
-export const useFetchPokemonList = (initialLimit) => {
+export const useFetchPokemonList = () => {
+    const [fullPokemonList, setFullPokemonList] = useState([]);
     const [pokemonList, setPokemonList] = useState([]);
-    const [limitResponse, setLimitResponse] = useState([]);
-    const [limit, setLimit] = useState(initialLimit);
+    const [limit, setLimit] = useState(10);
+    const [searchInput, setSearchInput] = useState('');
 
+    // Fetch all pokemons and store them in local storage
     useEffect(() => {
         const fetchPokemons = async () => {
-            try {
-                // Check if there's a cached list of pokemons
-                const cachedPokemonList = localStorage.getItem('pokemonList');
-                if (cachedPokemonList) {
-                    setLimitResponse(JSON.parse(cachedPokemonList).slice(0, limit));
-                }
-                // If not, fetch the list from the API and cache it
-                else {
-                    const response = await getPokemonList();
-                    setLimitResponse(response.slice(0, limit));
-                    localStorage.setItem('pokemonList', JSON.stringify(response));
-                }
-
-                // Fetch basic info for each pokemon in the list
-                const list = await Promise.all(
-                    limitResponse.map(async (pokemon) => {
-                        return await getPokemonBasicInfo(pokemon.name);
-                    })
-                );
-                setPokemonList(list);
-            } catch (error) {
-                console.error('Error fetching Pokemon data:', error);
+            const cachedPokemonList = localStorage.getItem('fullPokemonList');
+            if (cachedPokemonList) {
+                setFullPokemonList(JSON.parse(cachedPokemonList));
+            }
+            else {
+                const response = await getPokemonList();
+                setFullPokemonList(response);
+                localStorage.setItem('fullPokemonList', JSON.stringify(response));
             }
         };
 
         fetchPokemons();
-    }, [limit, limitResponse]);
+    }, []);
+
+    // Fetch pokemons based on the limit, only if the search input is empty
+    useEffect(() => {
+        if (searchInput === '') {
+            const limitedList = fullPokemonList.slice(0, limit);
+            const fetchList = limitedList.map(async (pokemon) => {
+                return await getPokemonBasicInfo(pokemon.name);
+            });
+            Promise.all(fetchList).then((data) => setPokemonList(data));
+        }
+    }, [fullPokemonList, limit, searchInput]);
+
+    // Fetch pokemons based on the search input
+    useEffect(() => {
+        if (searchInput !== '') {
+            const filteredList = fullPokemonList.filter(pokemon => 
+                pokemon.name.toLowerCase().includes(searchInput.toLowerCase())
+            );
+            const fetchList = filteredList.map(async (pokemon) => {
+                return await getPokemonBasicInfo(pokemon.name);
+            });
+            Promise.all(fetchList).then((data) => setPokemonList(data));
+        }
+    }, [fullPokemonList, searchInput]);
 
     const loadMorePokemon = () => {
-        const increment = 10;
-        setLimit(prevLimit => prevLimit + increment);
+        setLimit(prevLimit => prevLimit + 10);
     }
 
-    return { pokemonList, loadMorePokemon };
+    return { pokemonList, loadMorePokemon, searchInput, setSearchInput };
 }
 
 export const useFetchPokemonDetails = (pokemonID) => {
