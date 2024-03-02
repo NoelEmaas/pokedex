@@ -19,7 +19,7 @@ const PokemonCard = (props) => {
     }, []); 
 
     return (
-        <div className={`w-full bg-white border rounded-lg pokemon-card ${props.types[0].toLowerCase()}-card`}>
+        <div className={`w-full rounded-lg pokemon-card ${props.types[0].toLowerCase()}-card`}>
             <div className="flex flex-row w-full px-2 pt-2 gap-x-2">
                 {props.types.map((type, index) => (
                     <div key={index}>
@@ -32,7 +32,7 @@ const PokemonCard = (props) => {
                 ))}
             </div>
             <div className='px-2 md:min-h-[250px] min-h-[180px] flex items-center pokemon-img-container'>
-                <img src={props.image} alt={props.name} className="drop-shadow-lg pokemon-img" />
+                <img src={props.image} alt={props.name} className="pokemon-img" />
             </div>
             <div className="flex flex-row items-center justify-between px-4 py-3 rounded-b-lg" style={{ backgroundColor: color }}>
                 <h1 className="font-bold text-black text-opacity-65">{transformString(props.name)}</h1>

@@ -1,3 +1,11 @@
+.pokemon-card {
+    background-image: url('./assets/bg-poke.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    border: 2px solid #f2f2f2;
+}
+
 .pokemon-card:hover {
     cursor: pointer;
     transition: box-shadow 0.3s;
@@ -5,75 +13,94 @@
 
 .fire-card:hover {
     box-shadow: 0 0 10px 0 #FD7D24;
+    background-image: linear-gradient(to left, rgba(245, 206, 98, 0.9), rgba(228, 54, 3, 0.9), rgba(250, 113, 153, 0.9), rgba(232, 90, 25, 0.9)), url('./assets/bg-card.png');
 }
 
 .water-card:hover {
     box-shadow: 0 0 10px 0 #4592C4;
+    background-image: linear-gradient(to right, rgba(37, 170, 225, 0.9), rgba(68, 129, 235, 0.9), rgba(4, 190, 254, 0.9), rgba(63, 134, 237, 0.9)), url('./assets/bg-card.png');
 }
 
 .grass-card:hover {
     box-shadow: 0 0 10px 0 #9BCC50;
+    background-image: linear-gradient(to right, rgba(0, 146, 69, 0.9), rgba(252, 238, 33, 0.9), rgba(155, 204, 80, 0.9), rgba(217, 224, 33, 0.9)), url('./assets/bg-card.png');
 }
 
 .electric-card:hover {
     box-shadow: 0 0 10px 0 #FFFA07;
+    background-image: linear-gradient(to right, rgba(239, 212, 89, 0.9), rgba(255, 214, 28, 0.9), rgba(245, 231, 168, 0.9), rgba(185, 158, 33, 0.9)), url('./assets/bg-card.png');
 }
 
 .normal-card:hover {
     box-shadow: 0 0 10px 0 #A4ACAF;
+    background-image: linear-gradient(to right, rgba(222, 222, 222, 0.9), rgba(173, 173, 173, 0.9), rgba(210, 210, 210, 0.9), rgba(150, 150, 150, 0.9)), url('./assets/bg-card.png');
 }
 
 .fighting-card:hover {
     box-shadow: 0 0 10px 0 #D56723;
+    background-image: linear-gradient(to right, rgba(222, 58, 73, 0.9), rgba(255, 118, 130, 0.9), rgba(234, 83, 96, 0.9), rgba(224, 68, 82, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .flying-card:hover {
     box-shadow: 0 0 10px 0 #3DC7EF;
+    background-image: linear-gradient(to left, rgba(61, 199, 239, 0.9), rgba(3, 130, 165, 0.9), rgba(235, 229, 227, 0.9), rgba(189, 185, 184, 0.9)), url('./assets/bg-card.png');
+
 }
 
 .poison-card:hover {
     box-shadow: 0 0 10px 0 #B97FC9;
+    background-image: linear-gradient(to right, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9), rgba(107, 141, 214, 0.9), rgba(142, 55, 215, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .ground-card:hover {
     box-shadow: 0 0 10px 0 #F7DE3F;
+    background-image: linear-gradient(to left, rgba(233, 115, 51, 0.9), rgba(255, 154, 99, 0.9), rgba(214, 76, 0, 0.9), rgba(230, 91, 15, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .rock-card:hover {
     box-shadow: 0 0 10px 0 #A38C21;
+    background-image: linear-gradient(to left, rgba(191, 166, 85, 0.9), rgba(204, 183, 117, 0.9), rgba(220, 208, 169, 0.9), rgba(243, 207, 92, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .bug-card:hover {
     box-shadow: 0 0 10px 0 #729F3F;
+    background-image: linear-gradient(to left, rgba(114, 159, 63, 0.9), rgba(213, 185, 245, 0.9), rgba(84, 150, 93, 0.9), rgba(146, 210, 73, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .ghost-card:hover {
     box-shadow: 0 0 10px 0 #7B62A3;
+    background-image: linear-gradient(to left, rgba(98, 83, 225, 0.9), rgba(133, 45, 145, 0.9), rgba(70, 66, 255, 0.9), rgba(159, 38, 191, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .steel-card:hover {
     box-shadow: 0 0 10px 0 #9EB7B8;
+    background-image: linear-gradient(to left, rgba(47, 67, 83, 0.9), rgba(99, 103, 107, 0.9), rgba(80, 80, 80, 0.9), rgba(95, 95, 95, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .fairy-card:hover {
     box-shadow: 0 0 10px 0 #FDB9E9;
+    background-image: linear-gradient(to left, rgba(177, 56, 110, 0.9), rgba(220, 154, 183, 0.9), rgba(224, 202, 212, 0.9), rgba(171, 22, 90, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .psychic-card:hover {
     box-shadow: 0 0 10px 0 #F366B9;
+    background-image: linear-gradient(to right, rgba(237, 110, 160, 0.9), rgba(236, 140, 105, 0.9), rgba(237, 110, 160, 0.9), rgba(255, 61, 138, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .ice-card:hover {
     box-shadow: 0 0 10px 0 #51C4E7;
+    background-image: linear-gradient(to left, rgba(63, 208, 212, 0.9), rgba(64, 228, 149, 0.9), rgba(48, 221, 138, 0.9), rgba(12, 226, 232, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 .dragon-card:hover {
     box-shadow: 0 0 10px 0 #53A4CF;
+    background-image: linear-gradient(to right, rgba(83, 164, 207, 0.9), rgba(241, 110, 87, 0.9), rgba(245, 193, 184, 0.9), rgba(241, 110, 87, 0.9)), url('./assets/bg-card.png')    ;
 }
 
 
 .pokemon-card:hover .pokemon-img {
     transform: scale(1.15);
+    filter: drop-shadow(1px 1px 12px #000);
 }
 
 .pokemon-img {
