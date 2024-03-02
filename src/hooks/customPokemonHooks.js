@@ -6,6 +6,23 @@ export const useFetchPokemonList = () => {
     const [pokemonList, setPokemonList] = useState([]);
     const [limit, setLimit] = useState(10);
     const [searchInput, setSearchInput] = useState('');
+    const [orderBy, setOrderBy] = useState('0');
+
+    const sortPokemonList = (list, order) => {
+        const sortedList = [...list]; 
+        if (order === '0') {
+            return sortedList.sort((a, b) => a.id - b.id);
+        }
+        else if (order === '1') {
+            return sortedList.sort((a, b) => b.id - a.id);
+        }
+        else if (order === '2') {
+            return sortedList.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        else if (order === '3') {
+            return sortedList.sort((a, b) => b.name.localeCompare(a.name));
+        }
+    }
 
     // Fetch all pokemons and store them in local storage
     useEffect(() => {
@@ -49,11 +66,16 @@ export const useFetchPokemonList = () => {
         }
     }, [fullPokemonList, searchInput]);
 
+    // Sort the pokemon list based on the order by value
+    useEffect(() => {
+        setPokemonList(sortPokemonList(pokemonList, orderBy));
+    }, [orderBy]);
+
     const loadMorePokemon = () => {
         setLimit(prevLimit => prevLimit + 10);
     }
 
-    return { pokemonList, loadMorePokemon, searchInput, setSearchInput };
+    return { pokemonList, loadMorePokemon, searchInput, setSearchInput, orderBy, setOrderBy };
 }
 
 export const useFetchPokemonDetails = (pokemonID) => {
