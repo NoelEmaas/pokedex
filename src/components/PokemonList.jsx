@@ -5,7 +5,7 @@ const PokemonList = (props) => {
     const pokemonList = useFetchPokemonList();
 
     return (
-        <div className="grid grid-cols-2 gap-4 mt-5 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-4 pt-5 xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3">
             {pokemonList.map((pokemon, index) => (
                 <PokemonCard key={index} {...pokemon} />
             ))}
