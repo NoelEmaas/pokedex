@@ -8,14 +8,12 @@ export const useFetchPokemonList = () => {
         const fetchPokemons = async () => {
             try {
                 const response = await getPokemonList();
-                const pokemonListWithBasicInfo = await Promise.all(
+                const list = await Promise.all(
                     response.map(async (pokemon) => {
                         return await getPokemonBasicInfo(pokemon.name);
                     })
                 );
-                // console.log(pokemonListWithBasicInfo);
-                console.log(getPokemonCompleteInfo(pokemonListWithBasicInfo[0]));
-                setPokemonList(pokemonListWithBasicInfo);
+                setPokemonList(list);
             } catch (error) {
                 console.error('Error fetching Pokemon data:', error);
             }

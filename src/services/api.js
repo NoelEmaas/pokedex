@@ -35,9 +35,9 @@ export const getPokemonBasicInfo = async (pokemonName) => {
     }
 }
 
-export const getPokemonCompleteInfo = async (pokemon) => {
+export const getPokemonCompleteInfo = async (pokemonID) => {
     try {
-        const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${pokemon.name}`);
+        const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon/${pokemonID}`);
 
         const abilitiesData = await Promise.all(response.data.abilities.map(async (abilityData) => {
             return await getAbilityData(abilityData.ability.url);
@@ -47,6 +47,8 @@ export const getPokemonCompleteInfo = async (pokemon) => {
             return await getMoveData(moveData.move.url);
         }));
 
+        const id = response.data.id;
+        const imageURL = `${POKEMON_IMAGE_BASE_URL}/${String(id).padStart(3, "0")}.png`;
         const specieData = await getSpecieData(response.data.species.url);
         const evolutionChain = await getEvolutionSequence(specieData.evolution_chain_url);
         const encounterAreas = await getEncounterAreas(response.data.location_area_encounters);
@@ -54,7 +56,10 @@ export const getPokemonCompleteInfo = async (pokemon) => {
         const typesInfo = getTypeInfo(pokemon.types);
 
         const pokemonCompleteInfo = {
-            ...pokemon,
+            id,
+            name: response.data.name,
+            image: imageURL,
+            types: response.data.types.map(type => transformString(type.type.name)),
             height: response.data.height,
             weight: response.data.weight,
             abilities:  abilitiesData.filter(data => data !== null),
