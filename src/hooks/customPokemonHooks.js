@@ -25,6 +25,25 @@ export const useFetchPokemonList = () => {
     return pokemonList;
 }
 
+export const useFetchPokemonDetails = (pokemonID) => {
+    const [pokemonDetails, setPokemonDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchPokemonDetails = async () => {
+            try {
+                const response = await getPokemonCompleteInfo(pokemonID);
+                setPokemonDetails(response);
+            } catch (error) {
+                console.error('Error fetching Pokemon details:', error);
+            }
+        };
+
+        fetchPokemonDetails();
+    }, [pokemonID]);
+
+    return pokemonDetails;
+}
+
 export const useTypeIconsLoader = (types) => {
     const [icons, setIcons] = useState({});
 
