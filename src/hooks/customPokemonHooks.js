@@ -8,14 +8,12 @@ export const useFetchPokemonList = () => {
         const fetchPokemons = async () => {
             try {
                 const response = await getPokemonList();
-                const pokemonListWithBasicInfo = await Promise.all(
+                const list = await Promise.all(
                     response.map(async (pokemon) => {
                         return await getPokemonBasicInfo(pokemon.name);
                     })
                 );
-                // console.log(pokemonListWithBasicInfo);
-                console.log(getPokemonCompleteInfo(pokemonListWithBasicInfo[0]));
-                setPokemonList(pokemonListWithBasicInfo);
+                setPokemonList(list);
             } catch (error) {
                 console.error('Error fetching Pokemon data:', error);
             }
@@ -25,6 +23,25 @@ export const useFetchPokemonList = () => {
     }, []);
 
     return pokemonList;
+}
+
+export const useFetchPokemonDetails = (pokemonID) => {
+    const [pokemonDetails, setPokemonDetails] = useState(null);
+
+    useEffect(() => {
+        const fetchPokemonDetails = async () => {
+            try {
+                const response = await getPokemonCompleteInfo(pokemonID);
+                setPokemonDetails(response);
+            } catch (error) {
+                console.error('Error fetching Pokemon details:', error);
+            }
+        };
+
+        fetchPokemonDetails();
+    }, [pokemonID]);
+
+    return pokemonDetails;
 }
 
 export const useTypeIconsLoader = (types) => {
