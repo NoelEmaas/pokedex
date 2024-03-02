@@ -33,10 +33,13 @@ export const useTypeIconsLoader = (types) => {
     useEffect(() => {
         const importIcon = async (type) => {
             try {
-                const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
+                const fullIconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
+                const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}.png`);
+
                 setIcons(prevIcons => ({
                     ...prevIcons,
-                    [type]: iconModule.default
+                    [type]: iconModule.default,
+                    [`${type}_full`]: fullIconModule.default
                 }));
             } catch (error) {
                 console.error(`Error importing image for type '${type}':`, error);
