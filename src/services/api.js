@@ -7,7 +7,7 @@ const POKEMON_IMAGE_BASE_URL = 'https://assets.pokemon.com/assets/cms2/img/poked
 
 export const getPokemonList = async () => {
     try {
-        const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon?limit=100000&offset=0`);
+        const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon?limit=1010&offset=0`);
         const pokemonList = response.data.results;
         return pokemonList;
     } catch (error) {
