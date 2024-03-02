@@ -5,7 +5,7 @@ import pokemonTypes from '../../data/pokemon_types.json';
 const POKEAPI_BASE_URL = 'https://pokeapi.co/api/v2';
 const POKEMON_IMAGE_BASE_URL = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full';
 
-export const getPokemonList = async (limit = 10) => {
+export const getPokemonList = async (limit) => {
     try {
         const response = await axios.get(`${POKEAPI_BASE_URL}/pokemon?limit=${limit}`);
         const pokemonList = response.data.results;

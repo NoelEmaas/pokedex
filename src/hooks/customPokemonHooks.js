@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '../services/api';
 
-export const useFetchPokemonList = () => {
+export const useFetchPokemonList = (initialLimit) => {
     const [pokemonList, setPokemonList] = useState([]);
+    const [limit, setLimit] = useState(initialLimit);
 
     useEffect(() => {
         const fetchPokemons = async () => {
             try {
-                const response = await getPokemonList();
+                const response = await getPokemonList(limit);
                 const list = await Promise.all(
                     response.map(async (pokemon) => {
                         return await getPokemonBasicInfo(pokemon.name);
@@ -20,9 +21,14 @@ export const useFetchPokemonList = () => {
         };
 
         fetchPokemons();
-    }, []);
+    }, [limit]);
 
-    return pokemonList;
+    const loadMorePokemon = () => {
+        const increment = 10;
+        setLimit(prevLimit => prevLimit + increment);
+    }
+
+    return { pokemonList, loadMorePokemon };
 }
 
 export const useFetchPokemonDetails = (pokemonID) => {
