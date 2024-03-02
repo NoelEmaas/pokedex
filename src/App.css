@@ -3,6 +3,12 @@
     src: url('./assets/fonts/Komika.ttf') format('truetype');
 }
 
+.home {
+    background-image: url('./assets/bg-poke.png');
+    background-repeat: repeat;
+    background-color: #D91438;
+}
+
 .pokemon-card {
     background-image: url('./assets/bg-poke.png');
     background-repeat: no-repeat;
