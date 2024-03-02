@@ -26,6 +26,12 @@
         1px 1px 0 hsla(0, 0%, 0%, 0.3); 
 }
 
+.title {
+    font-family: 'Komika';
+    -webkit-text-stroke: 3px #365FAC;
+    color: #ffdd00;
+}
+
 .pokemon-card:hover {
     cursor: pointer;
     transition: box-shadow 0.3s;
