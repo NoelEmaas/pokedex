@@ -9,7 +9,13 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 
-const Topbar = () => {
+const Topbar = ({ searchInput, setSearchInput }) => {
+
+    const handleInputChange = (event) => {
+      const value = event.target.value;
+      setSearchInput(value);
+    };
+
     return (
         <div className="w-full border-b topbar pt-[30px] pb-[20px] flex flex-row justify-between">
             <div>
@@ -17,7 +23,7 @@ const Topbar = () => {
                 <p>A database of Pokémon information at your fingertips.</p>
             </div>
             <div className="flex flex-row items-end">
-                <Input type="text" placeholder="Search pokemon" />
+                <Input type="text" placeholder="Search pokemon" onChange={handleInputChange} value={searchInput}/>
                 <Select>
                     <SelectTrigger>
                         <SelectValue placeholder="Sort by" />
