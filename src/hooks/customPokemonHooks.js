@@ -7,22 +7,7 @@ export const useFetchPokemonList = () => {
     const [limit, setLimit] = useState(10);
     const [searchInput, setSearchInput] = useState('');
     const [orderBy, setOrderBy] = useState('0');
-
-    const sortPokemonList = (list, order) => {
-        const sortedList = [...list]; 
-        if (order === '0') {
-            return sortedList.sort((a, b) => a.id - b.id);
-        }
-        else if (order === '1') {
-            return sortedList.sort((a, b) => b.id - a.id);
-        }
-        else if (order === '2') {
-            return sortedList.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        else if (order === '3') {
-            return sortedList.sort((a, b) => b.name.localeCompare(a.name));
-        }
-    }
+    const limitIncrement = 10;
 
     // Fetch all pokemons and store them in local storage
     useEffect(() => {
@@ -44,11 +29,11 @@ export const useFetchPokemonList = () => {
     // Fetch pokemons based on the limit, only if the search input is empty
     useEffect(() => {
         if (searchInput === '') {
-            const limitedList = fullPokemonList.slice(0, limit);
+            const limitedList = fullPokemonList.slice(limit - limitIncrement, limit);
             const fetchList = limitedList.map(async (pokemon) => {
                 return await getPokemonBasicInfo(pokemon.name);
             });
-            Promise.all(fetchList).then((data) => setPokemonList(data));
+            Promise.all([...pokemonList, ...fetchList]).then((data) => setPokemonList(data));
         }
     }, [fullPokemonList, limit, searchInput]);
 
@@ -70,6 +55,22 @@ export const useFetchPokemonList = () => {
     useEffect(() => {
         setPokemonList(sortPokemonList(pokemonList, orderBy));
     }, [orderBy]);
+
+    const sortPokemonList = (list, order) => {
+        const sortedList = [...list]; 
+        if (order === '0') {
+            return sortedList.sort((a, b) => a.id - b.id);
+        }
+        else if (order === '1') {
+            return sortedList.sort((a, b) => b.id - a.id);
+        }
+        else if (order === '2') {
+            return sortedList.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        else if (order === '3') {
+            return sortedList.sort((a, b) => b.name.localeCompare(a.name));
+        }
+    }
 
     const loadMorePokemon = () => {
         setLimit(prevLimit => prevLimit + 10);
