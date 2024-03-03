@@ -1,26 +1,35 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator"
-import { useFetchPokemonList } from "@/hooks/customPokemonHooks";
-import PokemonList from '@/components/PokemonList';
-import Topbar from '@/components/Topbar';
-import { ReloadIcon } from "@radix-ui/react-icons"
+import { useEffect, useState } from 'react';
 
-const Home = (props) => {
-    const { 
-        pokemonList,
-        loadMorePokemon,
-        searchInput,
-        setSearchInput,
-        orderBy,
-        setOrderBy,
-        loadingMore,
-        loadingPokemon
-    } = useFetchPokemonList();
+import { sortList } from '@/lib/utils';
+import Pokedex from "@/assets/pokedex.png";
+import { Button } from "@/components/ui/button";
+import { ReloadIcon } from "@radix-ui/react-icons"
+import PokemonList from '@/components/PokemonList';
+import { Separator } from "@/components/ui/separator"
+import SearchSortPanel from '@/components/SearchSortPanel';
+import { useFetchPokemonList, useFetchSearchResultPokemonList } from "@/hooks/customPokemonHooks";
+
+const Home = () => {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [sortBy, setSortBy] = useState('0');
+    const [limit, setLimit] = useState(10);
+    const [loading, setLoading] = useState(true);
+
+    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading);
+    const { searchResultPokemonList, setSearchResultPokemonList } = useFetchSearchResultPokemonList(searchQuery, sortBy, setLoading);
+
+    useEffect(() => {
+        setPokemonList(sortList(pokemonList, sortBy));
+        setSearchResultPokemonList(sortList(searchResultPokemonList, sortBy));
+    }, [sortBy]);
 
     const ShowMoreButton = () => {
-        if (searchInput !== '' || pokemonList.length === 0 || pokemonList.length === 1010) return null;
+        if ((searchQuery === '' && pokemonList.length === 0) ||
+            (searchQuery !== '' && searchResultPokemonList.length === 9)) {
+                return null;
+        }
         
-        if (loadingMore) return (
+        if (loading) return (
             <>
                 <Separator orientation="horizontal" className="bg-[#373A41]"/>            
                 <Button disabled className="mt-6 mb-5 w-fit">
@@ -33,13 +42,19 @@ const Home = (props) => {
         return (
             <>
                 <Separator orientation="horizontal" className="bg-[#373A41]"/>
-                <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 text-gray-400 w-fit hover:text-gray-200 bg-[#050911] border-[#373A41] hover:bg-[#0a111d]">Show more pokemon</Button>
+                <Button 
+                    variant="outline" 
+                    onClick={() => setLimit(prevLimit => prevLimit + 10)} 
+                    className="mt-6 mb-5 text-gray-400 w-fit hover:text-gray-200 bg-[#050911] border-[#373A41] hover:bg-[#0a111d]"
+                >
+                    Show more pokemon
+                </Button>
             </>
         );
     }
 
     const DisplayNoResult = () => {
-        if (pokemonList.length === 0 && searchInput !== '') {
+        if (searchResultPokemonList.length === 0 && searchQuery !== '') {
             return (
                 <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50 h-[300px]">
                     <p className="text-lg font-bold text-red-500 md:text-xl">No pokemon found</p>
@@ -49,18 +64,22 @@ const Home = (props) => {
     }
 
     const LoadPokemonList = () => {
-        if (loadingPokemon) {
-            return <div>Loading...</div>
-        }
-        else {
-            return <PokemonList pokemonList={pokemonList}/>
-        }
+        if (searchQuery !== '') 
+            return <PokemonList pokemonList={searchResultPokemonList}/>
+        return <PokemonList pokemonList={pokemonList}/>
     }
 
     return (
         <div className='h-screen bg-[#010101] overflow-y-auto'>
             <div className='container xl:border-[#262626]'>
-                <Topbar setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
+                <div className='flex items-center justify-center w-full mt-5 mb-5'>
+                    <img src={Pokedex} alt="pokedex" className='md:w-[300px] w-[200px]'/>
+                </div>
+                <SearchSortPanel 
+                    setSearchQuery = { setSearchQuery } 
+                    sortBy = { sortBy } 
+                    setSortBy = { setSortBy } 
+                />
                 {LoadPokemonList()}
                 {DisplayNoResult()}
                 <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50">

@@ -3,6 +3,7 @@ import { transformString, getTypeColor } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ReactParallaxTilt from "react-parallax-tilt";
+import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 const PokemonCard = (props) => {
     const icons = useTypeIconsLoader(props.types);
@@ -36,36 +37,36 @@ const PokemonCard = (props) => {
     };
 
     return (
-        <Link to={`pokemon/${props.id}`}>
-            <ReactParallaxTilt
-                scale={1.08}
-                glareEnable={true}
-                glareMaxOpacity={0.3}
-                glareColor="lightblue"
-                glarePosition={"all"}
-                glareBorderRadius="26px"
-                transitionSpeed={10000}
-                transitionEasing="cubic-bezier(.03,.98,.52,.99)"
-            >
-                <div className={`w-full rounded-lg pokemon-card ${props.types[0].toLowerCase()}-card relative`}>
-                    <div className="flex flex-row w-full px-2 pt-2 gap-x-2">
-                        {props.types.map((type, index) => (
-                            <div key={index}>
-                            {windowWidth < 500 ? (
-                                icons[type] && <img src={icons[type]} alt={type} width={30} />
-                            ) : (
-                                icons[`${type}_full`] && <img src={icons[`${type}_full`]} alt={type} width={85} />
-                            )}
-                            </div>
-                        ))}
+            <Link to={`pokemon/${props.id}`}>
+                <ReactParallaxTilt
+                    scale={1.08}
+                    glareEnable={true}
+                    glareMaxOpacity={0.3}
+                    glareColor="lightblue"
+                    glarePosition={"all"}
+                    glareBorderRadius="26px"
+                    transitionSpeed={10000}
+                    transitionEasing="cubic-bezier(.03,.98,.52,.99)"
+                >
+                    <div className={`w-full rounded-lg pokemon-card ${props.types[0].toLowerCase()}-card relative`}>
+                        <div className="flex flex-row w-full px-2 pt-2 gap-x-2">
+                            {props.types.map((type, index) => (
+                                <div key={index}>
+                                {windowWidth < 500 ? (
+                                    icons[type] && <img src={icons[type]} alt={type} width={30} />
+                                ) : (
+                                    icons[`${type}_full`] && <img src={icons[`${type}_full`]} alt={type} width={85} />
+                                )}
+                                </div>
+                            ))}
+                        </div>
+                        <div className='px-2 md:min-h-[250px] min-h-[180px] flex items-center pokemon-img-container'>
+                            <img src={props.image} alt={props.name} className="pokemon-img" />
+                        </div>
+                        <CardInfo id={props.id} name={props.name} color={color} />
                     </div>
-                    <div className='px-2 md:min-h-[250px] min-h-[180px] flex items-center pokemon-img-container'>
-                        <img src={props.image} alt={props.name} className="pokemon-img" />
-                    </div>
-                    <CardInfo id={props.id} name={props.name} color={color} />
-                </div>
-            </ReactParallaxTilt>
-        </Link>
+                </ReactParallaxTilt>
+            </Link>
     );
 }
 
