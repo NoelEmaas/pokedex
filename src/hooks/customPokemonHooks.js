@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '@/services/api';
+import { useEffect, useState } from 'react';
+
 import { sortList } from '@/lib/utils';
+import { getPokemonBasicInfo, getPokemonCompleteInfo, getPokemonList } from '@/services/api';
 
 export const useFetchPokemonList = (limit, sortBy, setLoading) => {
     const [pokemonList, setPokemonList] = useState([]);
@@ -72,39 +73,30 @@ export const useFetchPokemonDetails = (pokemonID) => {
                 console.error('Error fetching Pokemon details:', error);
             }
         };
-        sortList
         fetchPokemonDetails();
     }, [pokemonID]);
 
     return pokemonDetails;
 }
 
-export const useTypeIconsLoader = (types) => {
-    const [icons, setIcons] = useState({});
-
-    useEffect(() => {
-        const importIcon = async (type) => {
-            try {
-                const fullIconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
-                const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}.png`);
-
-                setIcons(prevIcons => ({
-                    ...prevIcons,
-                    [type]: iconModule.default,
-                    [`${type}_full`]: fullIconModule.default
-                }));
-            } catch (error) {
-                console.error(`Error importing image for type '${type}':`, error);
-            }
-        };
-
-        types.forEach(type => {
-            importIcon(type);
-        });
-    }, [types]);
-
-    return icons;
-}
+export const useTypeIconsLoader = (types, setIcons) => {
+    const importIcon = async (type) => {
+        try {
+            const fullIconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
+            const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}.png`);
+    
+            setIcons(prevIcons => ({
+                ...prevIcons,
+                [type]: iconModule.default,
+                [`${type}_full`]: fullIconModule.default
+            }));
+        } catch (error) {
+            console.error(`Error importing image for type '${type}':`, error);
+        }
+    };
+  
+    types.forEach(importIcon); // Call importIcon directly
+};
 
 // Fetch all pokemons and store them in local storage
 const useFetchAllPokemon = () => {

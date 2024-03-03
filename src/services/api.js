@@ -124,7 +124,8 @@ const getSpecieData = async (specieUrl) => {
             color: response.data.color.name,
             is_legendary: response.data.is_legendary,
             is_mythical: response.data.is_mythical,
-            evolution_chain_url: response.data.evolution_chain.url
+            evolution_chain_url: response.data.evolution_chain.url,
+            description: response.data.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text
         }
         return speciData;
     } catch (error) {
