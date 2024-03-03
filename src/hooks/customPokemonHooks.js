@@ -9,6 +9,7 @@ export const useFetchPokemonList = () => {
     const [limit, setLimit] = useState(10);
     const [searchInput, setSearchInput] = useState('');
     const [orderBy, setOrderBy] = useState('0');
+    const [loadingMore, setLoadingMore] = useState(false);
     const limitIncrement = 10;
 
     // Fetch all pokemons and store them in local storage
@@ -37,6 +38,7 @@ export const useFetchPokemonList = () => {
         Promise.all([...limitedPokemonList, ...fetchList]).then((data) => {
             setPokemonList(sortList(data, orderBy));
             setLimitedPokemonList(sortList(data, orderBy));
+            setLoadingMore(false);
         });
     }, [fullPokemonList, limit]);
 
@@ -65,10 +67,11 @@ export const useFetchPokemonList = () => {
     }, [orderBy]);
 
     const loadMorePokemon = () => {
+        setLoadingMore(true);
         setLimit(prevLimit => prevLimit + 10);
     }
 
-    return { pokemonList, loadMorePokemon, searchInput, setSearchInput, orderBy, setOrderBy };
+    return { pokemonList, loadMorePokemon, searchInput, setSearchInput, orderBy, setOrderBy, loadingMore};
 }
 
 export const useFetchPokemonDetails = (pokemonID) => {

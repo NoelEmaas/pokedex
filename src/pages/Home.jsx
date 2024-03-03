@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator"
 import { useFetchPokemonList } from "@/hooks/customPokemonHooks";
 import PokemonList from '@/components/PokemonList';
 import Topbar from '@/components/Topbar';
+import { ReloadIcon } from "@radix-ui/react-icons"
 
 const Home = (props) => {
     const { 
@@ -11,17 +12,21 @@ const Home = (props) => {
         searchInput,
         setSearchInput,
         orderBy,
-        setOrderBy
+        setOrderBy,
+        loadingMore
     } = useFetchPokemonList();
 
     const ShowMoreButton = () => {
         if (searchInput !== '' || pokemonList.length === 0 || pokemonList.length === 1010) return null;
-        return (
-            <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50">
-                <Separator orientation="horizontal"/>
-                <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 w-fit">Show more pokemon</Button>
-            </div>
+        
+        if (loadingMore) return (
+            <Button disabled>
+                <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />
+                Loading more pokemon ...
+            </Button>
         )
+
+        return <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 w-fit">Show more pokemon</Button>
     }
 
     const DisplayNoResult = () => {
@@ -40,7 +45,10 @@ const Home = (props) => {
                 <Topbar setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
                 <PokemonList pokemonList={pokemonList}/>
                 {DisplayNoResult()}
-                {ShowMoreButton()}
+                <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50">
+                    <Separator orientation="horizontal"/>
+                    {ShowMoreButton()}
+                </div>
             </div>
         </div>
     )
