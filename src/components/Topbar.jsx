@@ -32,7 +32,7 @@ const Topbar = ({ setSearchInput, orderBy, setOrderBy }) => {
                 <p className="text-[12px] md:text-base">A database of Pokémon information at your fingertips.</p>
             </div>
             <div className="flex items-end gap-x-4">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="lg:w-[400px] w-full">
                     <Input className="lg:w-[400px] w-full" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchQuery}/>
                 </form>
                 <DropdownMenu>

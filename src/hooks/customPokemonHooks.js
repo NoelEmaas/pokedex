@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '@/services/api';
 import { sortList } from '@/lib/utils';
 
