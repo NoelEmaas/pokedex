@@ -21,13 +21,13 @@ const Home = (props) => {
         if (searchInput !== '' || pokemonList.length === 0 || pokemonList.length === 1010) return null;
         
         if (loadingMore) return (
-            <Button disabled>
+            <Button disabled className="mt-6 mb-5 w-fit">
                 <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />
                 Loading more pokemon ...
             </Button>
         )
 
-        return <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 w-fit">Show more pokemon</Button>
+        return <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 text-gray-600 w-fit">Show more pokemon</Button>
     }
 
     const DisplayNoResult = () => {
@@ -50,8 +50,8 @@ const Home = (props) => {
     }
 
     return (
-        <div className='h-screen'>
-            <div className='container bg-white xl:border-[#262626]'>
+        <div className='h-screen '>
+            <div className='container xl:border-[#262626]'>
                 <Topbar setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
                 {LoadPokemonList()}
                 {DisplayNoResult()}

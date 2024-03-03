@@ -10,6 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
+import { MagnifyingGlassIcon, MixerHorizontalIcon } from '@radix-ui/react-icons';
 
 const Topbar = ({ setSearchInput, orderBy, setOrderBy }) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -26,21 +27,17 @@ const Topbar = ({ setSearchInput, orderBy, setOrderBy }) => {
     }
 
     return (
-        <div className="w-full border-b topbar pt-[30px] pb-[20px] flex lg:flex-row flex-col justify-between">
-            <div className="mb-6 lg:mb-0">
-                <h1 className='pb-4 text-2xl md:text-3xl title'>Pokedex</h1>
-                <p className="text-[12px] md:text-base">A database of Pokémon information at your fingertips.</p>
-            </div>
-            <div className="flex items-end gap-x-4">
-                <form onSubmit={handleSubmit} className="lg:w-[400px] w-full">
-                    <Input className="lg:w-[400px] w-full" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchQuery}/>
+        <div className="w-full topbar pt-[30px] pb-[20px] flex flex-col justify-between gap-y-7">
+            <h1 className='text-2xl text-center md:pb-4 md:text-5xl title'>Pokedex</h1>
+            <div className="flex items-end justify-center gap-x-4">
+                <form onSubmit={handleSubmit} className="lg:w-[600px] w-full flex flex-row">
+                    <Button className="rounded-none rounded-l-lg bg-[#365FAC]"><MagnifyingGlassIcon/></Button>
+                    <Input className="w-full rounded-none rounded-r-lg focus-visible:ring-offset-0 focus-visible:ring-0" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchQuery}/>
                 </form>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
-                            </svg>
+                            <MixerHorizontalIcon />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className="w-56">
