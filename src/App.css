@@ -10,11 +10,11 @@
 }
 
 .pokemon-card {
-    background-image: url('./assets/bg-poke.png');
+    background-image:  linear-gradient(180deg, rgba(9,15,27,0.4) 85%, rgba(17,17,17,0.4) 100%), url('./assets/bg-poke.png');
     background-repeat: no-repeat;
     background-size: cover;
     box-sizing: border-box;
-    border: 2px solid #f2f2f2;
+    border: 1px solid #373A41;
 }
 
 .pokemon-name {

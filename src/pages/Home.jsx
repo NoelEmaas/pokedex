@@ -50,7 +50,7 @@ const Home = (props) => {
     }
 
     return (
-        <div className='h-screen '>
+        <div className='h-screen bg-[#010101] overflow-y-auto'>
             <div className='container xl:border-[#262626]'>
                 <Topbar setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
                 {LoadPokemonList()}
