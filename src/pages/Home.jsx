@@ -13,7 +13,8 @@ const Home = (props) => {
         setSearchInput,
         orderBy,
         setOrderBy,
-        loadingMore
+        loadingMore,
+        loadingPokemon
     } = useFetchPokemonList();
 
     const ShowMoreButton = () => {
@@ -39,11 +40,20 @@ const Home = (props) => {
         }
     }
 
+    const LoadPokemonList = () => {
+        if (loadingPokemon) {
+            return <div>Loading...</div>
+        }
+        else {
+            return <PokemonList pokemonList={pokemonList}/>
+        }
+    }
+
     return (
         <div className='h-screen'>
             <div className='container bg-white xl:border-[#262626]'>
                 <Topbar setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
-                <PokemonList pokemonList={pokemonList}/>
+                {LoadPokemonList()}
                 {DisplayNoResult()}
                 <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50">
                     <Separator orientation="horizontal"/>
