@@ -9,21 +9,32 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useState } from "react"
 
-const Topbar = ({ searchInput, setSearchInput, orderBy, setOrderBy }) => {
+const Topbar = ({ setSearchInput, orderBy, setOrderBy }) => {
+    const [searchQuery, setSearchQuery] = useState('');
+    
     const handleInputChange = (event) => {
         const value = event.target.value;
-        setSearchInput(value);
+        if (value === '') setSearchInput('');
+        setSearchQuery(value);
     };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        setSearchInput(searchQuery);
+    }
 
     return (
         <div className="w-full border-b topbar pt-[30px] pb-[20px] flex lg:flex-row flex-col justify-between">
             <div className="mb-6 lg:mb-0">
-                <h1 className='pb-4 text-5xl md:text-6xl title'>Pokedex</h1>
+                <h1 className='pb-4 text-2xl md:text-3xl title'>Pokedex</h1>
                 <p className="text-[12px] md:text-base">A database of Pokémon information at your fingertips.</p>
             </div>
             <div className="flex items-end gap-x-4">
-                <Input className="lg:w-[400px] w-full" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchInput}/>
+                <form onSubmit={handleSubmit}>
+                    <Input className="lg:w-[400px] w-full" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchQuery}/>
+                </form>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline">

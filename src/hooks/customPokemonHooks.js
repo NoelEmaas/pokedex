@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
-import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '../services/api';
+import { getPokemonList, getPokemonBasicInfo, getPokemonCompleteInfo } from '@/services/api';
+import { sortList } from '@/lib/utils';
 
 export const useFetchPokemonList = () => {
     const [fullPokemonList, setFullPokemonList] = useState([]);
     const [pokemonList, setPokemonList] = useState([]);
+    const [limitedPokemonList, setLimitedPokemonList] = useState([]);
     const [limit, setLimit] = useState(10);
     const [searchInput, setSearchInput] = useState('');
     const [orderBy, setOrderBy] = useState('0');
@@ -26,18 +28,21 @@ export const useFetchPokemonList = () => {
         fetchPokemons();
     }, []);
 
-    // Fetch pokemons based on the limit, only if the search input is empty
+    // Fetch pokemons basic info based on the limit, only if the search input is empty
     useEffect(() => {
         if (searchInput === '') {
             const limitedList = fullPokemonList.slice(limit - limitIncrement, limit);
             const fetchList = limitedList.map(async (pokemon) => {
                 return await getPokemonBasicInfo(pokemon.name);
             });
-            Promise.all([...pokemonList, ...fetchList]).then((data) => setPokemonList(data));
+            Promise.all([...limitedPokemonList, ...fetchList]).then((data) => {
+                setPokemonList(sortList(data, orderBy));
+                setLimitedPokemonList(sortList(data, orderBy));
+            });
         }
     }, [fullPokemonList, limit, searchInput]);
 
-    // Fetch pokemons based on the search input
+    // Fetch pokemons basic info based on the search input
     useEffect(() => {
         if (searchInput !== '') {
             const filteredList = fullPokemonList.filter(pokemon => 
@@ -47,36 +52,20 @@ export const useFetchPokemonList = () => {
             const fetchList = filteredList.map(async (pokemon) => {
                 return await getPokemonBasicInfo(pokemon.name);
             });
-            Promise.all(fetchList).then((data) => setPokemonList(data));
+            Promise.all(fetchList).then((data) => setPokemonList(sortList(data, orderBy)));
         }
     }, [fullPokemonList, searchInput]);
 
     // Sort the pokemon list based on the order by value
     useEffect(() => {
-        setPokemonList(sortPokemonList(pokemonList, orderBy));
+        setPokemonList(sortList(pokemonList, orderBy));
     }, [orderBy]);
-
-    const sortPokemonList = (list, order) => {
-        const sortedList = [...list]; 
-        if (order === '0') {
-            return sortedList.sort((a, b) => a.id - b.id);
-        }
-        else if (order === '1') {
-            return sortedList.sort((a, b) => b.id - a.id);
-        }
-        else if (order === '2') {
-            return sortedList.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        else if (order === '3') {
-            return sortedList.sort((a, b) => b.name.localeCompare(a.name));
-        }
-    }
 
     const loadMorePokemon = () => {
         setLimit(prevLimit => prevLimit + 10);
     }
 
-    return { pokemonList, loadMorePokemon, searchInput, setSearchInput, orderBy, setOrderBy };
+    return { pokemonList, loadMorePokemon, setSearchInput, orderBy, setOrderBy };
 }
 
 export const useFetchPokemonDetails = (pokemonID) => {
@@ -91,7 +80,7 @@ export const useFetchPokemonDetails = (pokemonID) => {
                 console.error('Error fetching Pokemon details:', error);
             }
         };
-
+        sortList
         fetchPokemonDetails();
     }, [pokemonID]);
 

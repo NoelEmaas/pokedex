@@ -34,3 +34,19 @@ export function getTypeColor (type) {
 
   return typeColor[type];
 }
+
+export const sortList = (list, order) => {
+    const sortedList = [...list]; 
+    if (order === '0') {
+        return sortedList.sort((a, b) => a.id - b.id);
+    }
+    else if (order === '1') {
+        return sortedList.sort((a, b) => b.id - a.id);
+    }
+    else if (order === '2') {
+        return sortedList.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    else if (order === '3') {
+        return sortedList.sort((a, b) => b.name.localeCompare(a.name));
+    }
+}

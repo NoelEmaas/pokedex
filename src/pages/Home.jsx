@@ -8,16 +8,15 @@ const Home = (props) => {
     const { 
         pokemonList,
         loadMorePokemon,
-        searchInput, 
         setSearchInput,
         orderBy,
         setOrderBy
     } = useFetchPokemonList();
 
     return (
-        <div className='h-screen overflow-y-auto home'>
-            <div className='container h-screen overflow-x-auto bg-white border-x-4 xl:border-[#262626]'>
-                <Topbar searchInput={searchInput} setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
+        <div className='h-screen'>
+            <div className='container bg-white xl:border-[#262626]'>
+                <Topbar setSearchInput={setSearchInput} orderBy={orderBy} setOrderBy={setOrderBy}/>
                 <PokemonList pokemonList={pokemonList}/>
                 <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50">
                     <Separator orientation="horizontal"/>
