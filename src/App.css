@@ -26,6 +26,11 @@
         1px 1px 0 hsla(0, 0%, 0%, 0.3); 
 }
 
+.hero-title {
+    font-family: 'Komika';
+    opacity: 0.2;
+}
+
 .title {
     font-family: 'Komika';
     -webkit-text-stroke: 2px #365FAC;

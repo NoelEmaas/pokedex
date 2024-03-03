@@ -21,13 +21,21 @@ const Home = (props) => {
         if (searchInput !== '' || pokemonList.length === 0 || pokemonList.length === 1010) return null;
         
         if (loadingMore) return (
-            <Button disabled className="mt-6 mb-5 w-fit">
-                <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />
-                Loading more pokemon ...
-            </Button>
+            <>
+                <Separator orientation="horizontal" className="bg-[#373A41]"/>            
+                <Button disabled className="mt-6 mb-5 w-fit">
+                    <ReloadIcon className="w-4 h-4 mr-2 animate-spin" />
+                    Loading more pokemon ...
+                </Button>
+            </>
         )
 
-        return <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 text-gray-600 w-fit">Show more pokemon</Button>
+        return (
+            <>
+                <Separator orientation="horizontal" className="bg-[#373A41]"/>
+                <Button variant="outline" onClick={loadMorePokemon} className="mt-6 mb-5 text-gray-400 w-fit hover:text-gray-200 bg-[#050911] border-[#373A41] hover:bg-[#0a111d]">Show more pokemon</Button>
+            </>
+        );
     }
 
     const DisplayNoResult = () => {
@@ -56,7 +64,6 @@ const Home = (props) => {
                 {LoadPokemonList()}
                 {DisplayNoResult()}
                 <div className="flex flex-col items-center justify-center w-full mt-6 border-red-50">
-                    <Separator orientation="horizontal"/>
                     {ShowMoreButton()}
                 </div>
             </div>

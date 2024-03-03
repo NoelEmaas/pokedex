@@ -26,12 +26,12 @@ const PokemonCard = (props) => {
         };
       
         return (
-          <div className="flex flex-col items-center justify-between pb-3 rounded-b-lg px-9 pt-7 sm:flex-row" style={gradientStyle}>
-            <h1 className="mb-3 text-sm font-bold text-white text-opacity-90 pokemon-name sm:text-base sm:mb-0">{transformString(name)}</h1>
-            <div className="flex items-center px-2 py-1 bg-black rounded-md bg-opacity-30">
-                <h1 className="text-sm font-medium text-white">#{String(id).padStart(3, "0")}</h1>
+            <div className="flex flex-col items-center justify-between px-4 pb-3 rounded-b-lg pt-7 sm:flex-row" style={gradientStyle}>
+                <h1 className="mb-3 text-sm font-bold text-white text-opacity-90 pokemon-name sm:text-base sm:mb-0">{transformString(name)}</h1>
+                <div className="flex items-center px-2 py-1 bg-black rounded-md bg-opacity-30">
+                    <h1 className="text-sm font-medium text-white">#{String(id).padStart(3, "0")}</h1>
+                </div>
             </div>
-          </div>
         );
     };
 

@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useState } from "react"
 import { MagnifyingGlassIcon, MixerHorizontalIcon } from '@radix-ui/react-icons';
+import Pokedex from '@/assets/pokedex.png';
 
 const Topbar = ({ setSearchInput, orderBy, setOrderBy }) => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -27,9 +28,11 @@ const Topbar = ({ setSearchInput, orderBy, setOrderBy }) => {
     }
 
     return (
-        <div className="w-full topbar sm:border-0 border-b pt-[30px] pb-[20px] flex flex-col justify-between gap-y-7">
-            <h1 className='text-2xl text-center md:pb-4 md:text-5xl title'>Pokedex</h1>
-            <div className="flex items-end justify-end gap-x-4">
+        <div className="w-full topbar sm:border-0 border-b border-[#373A41] pt-[30px] pb-[20px] flex flex-col justify-between gap-y-7">
+            <div className="flex items-center justify-center w-full">
+                <img src={Pokedex} alt="pokedex" width={300} />
+            </div>
+            <div className="flex items-end justify-center gap-x-4">  
                 <form onSubmit={handleSubmit} className="lg:w-[600px] w-full flex flex-row border-[#373A41] border rounded-lg">
                     <Button className="rounded-none rounded-l-lg bg-[#5800CC] py-6 border-[#050911]"><MagnifyingGlassIcon/></Button>
                     <Input className="w-full rounded-none rounded-r-lg focus-visible:ring-offset-0 focus-visible:ring-0 border-0 bg-[#050911] py-6 text-white" type="text" placeholder="Search pokemon ..." onChange={handleInputChange} value={searchQuery}/>
