@@ -30,17 +30,20 @@ export const useFetchPokemonList = () => {
 
     // Fetch pokemons basic info based on the limit, only if the search input is empty
     useEffect(() => {
-        if (searchInput === '') {
-            const limitedList = fullPokemonList.slice(limit - limitIncrement, limit);
-            const fetchList = limitedList.map(async (pokemon) => {
-                return await getPokemonBasicInfo(pokemon.name);
-            });
-            Promise.all([...limitedPokemonList, ...fetchList]).then((data) => {
-                setPokemonList(sortList(data, orderBy));
-                setLimitedPokemonList(sortList(data, orderBy));
-            });
-        }
-    }, [fullPokemonList, limit, searchInput]);
+        const limitedList = fullPokemonList.slice(limit - limitIncrement, limit);
+        const fetchList = limitedList.map(async (pokemon) => {
+            return await getPokemonBasicInfo(pokemon.name);
+        });
+        Promise.all([...limitedPokemonList, ...fetchList]).then((data) => {
+            setPokemonList(sortList(data, orderBy));
+            setLimitedPokemonList(sortList(data, orderBy));
+        });
+    }, [fullPokemonList, limit]);
+
+    // Reset search result when the search input is empty
+    useEffect(() => {
+        (searchInput === '') && setPokemonList(sortList(limitedPokemonList, orderBy));
+    }, [searchInput]);
 
     // Fetch pokemons basic info based on the search input
     useEffect(() => {
@@ -65,7 +68,7 @@ export const useFetchPokemonList = () => {
         setLimit(prevLimit => prevLimit + 10);
     }
 
-    return { pokemonList, loadMorePokemon, setSearchInput, orderBy, setOrderBy };
+    return { pokemonList, loadMorePokemon, searchInput, setSearchInput, orderBy, setOrderBy };
 }
 
 export const useFetchPokemonDetails = (pokemonID) => {
