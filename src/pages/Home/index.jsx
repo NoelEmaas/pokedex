@@ -14,10 +14,9 @@ const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('0');
     const [limit, setLimit] = useState(10);
-    const [loading, setLoading] = useState(true);
-    const [initialLoading, setInitialLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading, setInitialLoading);
+    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading);
     const { searchResultPokemonList, setSearchResultPokemonList } = useFetchSearchResultPokemonList(searchQuery, sortBy, setLoading);
 
     useEffect(() => {
@@ -31,7 +30,7 @@ const Home = () => {
 
     const ShowMoreButton = () => {
         if ((searchQuery === '' && pokemonList.length === 0) ||
-            (searchQuery !== '' && searchResultPokemonList.length === 9)) {
+            (searchQuery !== '')) {
                 return null;
         }
         
@@ -76,6 +75,7 @@ const Home = () => {
     }
 
     return (
+       
         <div className='h-screen bg-[#010101] overflow-y-auto'>
             <div className='container xl:border-[#262626]'>
                 <div className='flex items-center justify-center w-full mt-5 mb-5'>

@@ -8,14 +8,14 @@ import PokemonBasicInfo from "@/pages/PokemonDetails/components/PokemonBasicInfo
 import PokemonAbilities from "@/pages/PokemonDetails/components/PokemonAbilities";
 import PokemonDescription from "@/pages/PokemonDetails/components/PokemonDescription";
 import PokeBallLoader from "@/components/pokeballLoader/PokeBallLoader";
+import { useState } from "react";
 
 const PokemonDetails = () => {
     const { id } = useParams();
-    const pokemon = useFetchPokemonDetails(id);
+    const [loading, setLoading] = useState(true);
+    const pokemon = useFetchPokemonDetails(id, setLoading);
     
-    console.log(pokemon);
-
-    if (!pokemon) {
+    if (loading) {
         return <PokeBallLoader />
     }
 

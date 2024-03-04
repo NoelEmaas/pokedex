@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -7,8 +7,13 @@ import { MagnifyingGlassIcon } from '@radix-ui/react-icons';
 const SearchBar = ({ setSearchQuery }) => {
     const [searchInput, setSearchInput] = useState('');
 
+    useEffect(() => {
+        setSearchInput(localStorage.getItem("searchValue") || '');
+    }, []);
+
     const handleInputChange = (event) => {
         const value = event.target.value;
+        localStorage.setItem("searchValue", value);
         if (value === '') setSearchQuery(value);
         setSearchInput(value);
     };

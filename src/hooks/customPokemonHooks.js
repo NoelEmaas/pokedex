@@ -5,22 +5,19 @@ import { getPokemonBasicInfo, getPokemonCompleteInfo, getPokemonList } from '@/s
 
 export const useFetchPokemonList = (limit, sortBy, setLoading) => {
     const [pokemonList, setPokemonList] = useState([]);
-    const fullPokemonList = useFetchAllPokemon();
+    const fullPokemonList = useFetchAllPokemon(setLoading);
 
     useEffect(() => {
         const fetchPokemonList = async () => {
             try {
-                setLoading(true);
                 const limitedList = fullPokemonList.slice(limit - 10, limit);
                 const fetchedPokemonList = await Promise.all(limitedList.map(async (pokemon) => {
                     return await getPokemonBasicInfo(pokemon.name);
                 }));
                 const newPokemonList = [...pokemonList, ...fetchedPokemonList];
                 setPokemonList(sortList(newPokemonList, sortBy));
-                setLoading(false);
             } catch (error) {
                 console.error('Error fetching Pokemon list:', error);
-                setLoading(false);
             }
         };
     
@@ -36,9 +33,9 @@ export const useFetchSearchResultPokemonList = (searchQuery, sortBy, setLoading)
 
     useEffect(() => {
         const fetchSearchResultPokemonList = async () => {
+            setLoading(true);
             try {
                 if (searchQuery !== '') {
-                    setLoading(true);
                     const filteredList = fullPokemonList.filter(pokemon => 
                         pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                         pokemon.id.padStart(3, "0").includes(searchQuery.toLowerCase())
@@ -51,6 +48,7 @@ export const useFetchSearchResultPokemonList = (searchQuery, sortBy, setLoading)
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching search result Pokemon list:', error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -61,16 +59,19 @@ export const useFetchSearchResultPokemonList = (searchQuery, sortBy, setLoading)
     return { searchResultPokemonList, setSearchResultPokemonList };
 }
 
-export const useFetchPokemonDetails = (pokemonID) => {
+export const useFetchPokemonDetails = (pokemonID, setLoading) => {
     const [pokemonDetails, setPokemonDetails] = useState(null);
 
     useEffect(() => {
         const fetchPokemonDetails = async () => {
+            setLoading(true);
             try {
                 const response = await getPokemonCompleteInfo(pokemonID);
                 setPokemonDetails(response);
             } catch (error) {
                 console.error('Error fetching Pokemon details:', error);
+            } finally {
+                setLoading(false);
             }
         };
         fetchPokemonDetails();
@@ -107,7 +108,7 @@ export const useTypeIconsLoader = (types) => {
 }
 
 // Fetch all pokemons and store them in local storage
-const useFetchAllPokemon = () => {
+const useFetchAllPokemon = (setLoading) => {
     const [fullPokemonList, setFullPokemonList] = useState([]);
     
     useEffect(() => {
@@ -115,11 +116,13 @@ const useFetchAllPokemon = () => {
             const cachedPokemonList = localStorage.getItem('fullPokemonList');
             if (cachedPokemonList) {
                 setFullPokemonList(JSON.parse(cachedPokemonList));
+                setLoading(false);
             }
             else {
                 const response = await getPokemonList();
                 setFullPokemonList(response);
                 localStorage.setItem('fullPokemonList', JSON.stringify(response));
+                setLoading(false);
             }
         };
 
