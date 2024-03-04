@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
 
+import { useState } from "react";
+
 import { useFetchPokemonDetails } from "@/hooks/customPokemonHooks";
+import PokeBallLoader from "@/components/pokeballLoader/PokeBallLoader";
 import PokemonStats from "@/pages/PokemonDetails/components/PokemonStats";
 import NextPrevButtons from "@/pages/PokemonDetails/components/NextPrevButtons";
 import PokemonImageCard from "@/pages/PokemonDetails/components/PokemonImageCard";
 import PokemonBasicInfo from "@/pages/PokemonDetails/components/PokemonBasicInfo";
 import PokemonAbilities from "@/pages/PokemonDetails/components/PokemonAbilities";
 import PokemonDescription from "@/pages/PokemonDetails/components/PokemonDescription";
-import PokeBallLoader from "@/components/pokeballLoader/PokeBallLoader";
-import { useState } from "react";
 
 const PokemonDetails = () => {
     const { id } = useParams();
