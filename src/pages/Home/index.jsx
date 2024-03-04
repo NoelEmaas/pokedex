@@ -8,20 +8,26 @@ import { Separator } from "@/components/ui/separator"
 import PokemonList from '@/pages/Home/components/PokemonList';
 import SearchSortPanel from '@/pages/Home/components/SearchSortPanel';
 import { useFetchPokemonList, useFetchSearchResultPokemonList } from "@/hooks/customPokemonHooks";
+import PokeBallLoader from '@/components/pokeballLoader/PokeBallLoader';
 
 const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('0');
     const [limit, setLimit] = useState(10);
     const [loading, setLoading] = useState(true);
+    const [initialLoading, setInitialLoading] = useState(true);
 
-    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading);
+    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading, setInitialLoading);
     const { searchResultPokemonList, setSearchResultPokemonList } = useFetchSearchResultPokemonList(searchQuery, sortBy, setLoading);
 
     useEffect(() => {
         setPokemonList(sortList(pokemonList, sortBy));
         setSearchResultPokemonList(sortList(searchResultPokemonList, sortBy));
     }, [sortBy]);
+
+    if (loading) {
+        return <PokeBallLoader />
+    }
 
     const ShowMoreButton = () => {
         if ((searchQuery === '' && pokemonList.length === 0) ||
