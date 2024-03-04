@@ -8,13 +8,9 @@ import { useTypeIconsLoader } from '@/hooks/customPokemonHooks';
 
 const PokemonCard = (props) => {
     const color = getTypeColor(props.types[0].toLowerCase());
-    const [icons, setIcons] = useState({});
+    const icons = useTypeIconsLoader(props.types);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     
-    useEffect(() => {
-        useTypeIconsLoader(props.types, setIcons);
-    }, []);
-
     useEffect(() => {
         const handleResize = () => {
           setWindowWidth(window.innerWidth);

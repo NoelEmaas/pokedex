@@ -79,24 +79,32 @@ export const useFetchPokemonDetails = (pokemonID) => {
     return pokemonDetails;
 }
 
-export const useTypeIconsLoader = (types, setIcons) => {
-    const importIcon = async (type) => {
-        try {
-            const fullIconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
-            const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}.png`);
-    
-            setIcons(prevIcons => ({
-                ...prevIcons,
-                [type]: iconModule.default,
-                [`${type}_full`]: fullIconModule.default
-            }));
-        } catch (error) {
-            console.error(`Error importing image for type '${type}':`, error);
-        }
-    };
-  
-    types.forEach(importIcon); // Call importIcon directly
-};
+export const useTypeIconsLoader = (types) => {
+    const [icons, setIcons] = useState({});
+
+    useEffect(() => {
+        const importIcon = async (type) => {
+            try {
+                const fullIconModule = await import(`../assets/type_icons/${type.toLowerCase()}_full.png`);
+                const iconModule = await import(`../assets/type_icons/${type.toLowerCase()}.png`);
+
+                setIcons(prevIcons => ({
+                    ...prevIcons,
+                    [type]: iconModule.default,
+                    [`${type}_full`]: fullIconModule.default
+                }));
+            } catch (error) {
+                console.error(`Error importing image for type '${type}':`, error);
+            }
+        };
+
+        types.forEach(type => {
+            importIcon(type);
+        });
+    }, [types]);
+
+    return icons;
+}
 
 // Fetch all pokemons and store them in local storage
 const useFetchAllPokemon = () => {

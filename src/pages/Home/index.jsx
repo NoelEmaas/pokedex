@@ -4,9 +4,9 @@ import { sortList } from '@/lib/utils';
 import Pokedex from "@/assets/pokedex.png";
 import { Button } from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons"
-import PokemonList from '@/components/PokemonList';
 import { Separator } from "@/components/ui/separator"
-import SearchSortPanel from '@/components/SearchSortPanel';
+import PokemonList from '@/pages/Home/components/PokemonList';
+import SearchSortPanel from '@/pages/Home/components/SearchSortPanel';
 import { useFetchPokemonList, useFetchSearchResultPokemonList } from "@/hooks/customPokemonHooks";
 
 const Home = () => {

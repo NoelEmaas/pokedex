@@ -1,4 +1,4 @@
-import PokemonCard from "@/components/PokemonCard";
+import PokemonCard from "@/pages/Home/components/PokemonCard";
 
 const PokemonList = (props) => {
     return (

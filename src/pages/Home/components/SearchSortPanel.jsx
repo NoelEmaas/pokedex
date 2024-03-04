@@ -1,5 +1,5 @@
-import SortTool from "@/components/SortTool";
-import SearchBar from "@/components/SearchBar";
+import SortTool from "@/pages/Home/components/SortTool";
+import SearchBar from "@/pages/Home/components/SearchBar";
 
 const SearchSortPanel = ({ setSearchQuery, sortBy, setSortBy }) => {
     return (
