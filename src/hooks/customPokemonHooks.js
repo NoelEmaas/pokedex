@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react';
 import { sortList } from '@/lib/utils';
 import { getPokemonBasicInfo, getPokemonCompleteInfo, getPokemonList } from '@/services/api';
 
-export const useFetchPokemonList = (limit, sortBy, setLoading) => {
+export const useFetchPokemonList = (limit, sortBy, setLoading, setLoadingMore) => {
     const [pokemonList, setPokemonList] = useState([]);
     const fullPokemonList = useFetchAllPokemon(setLoading);
 
     useEffect(() => {
         const fetchPokemonList = async () => {
+            setLoadingMore(true);
             try {
                 const limitedList = fullPokemonList.slice(limit - 10, limit);
                 const fetchedPokemonList = await Promise.all(limitedList.map(async (pokemon) => {
@@ -18,6 +19,8 @@ export const useFetchPokemonList = (limit, sortBy, setLoading) => {
                 setPokemonList(sortList(newPokemonList, sortBy));
             } catch (error) {
                 console.error('Error fetching Pokemon list:', error);
+            } finally {
+                setLoadingMore(false);
             }
         };
     

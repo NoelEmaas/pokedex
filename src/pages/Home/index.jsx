@@ -14,9 +14,10 @@ const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('0');
     const [limit, setLimit] = useState(10);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(true);
 
-    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading);
+    const { pokemonList, setPokemonList } = useFetchPokemonList(limit, sortBy, setLoading, setLoadingMore);
     const { searchResultPokemonList, setSearchResultPokemonList } = useFetchSearchResultPokemonList(searchQuery, sortBy, setLoading);
 
     useEffect(() => {
@@ -34,7 +35,7 @@ const Home = () => {
                 return null;
         }
         
-        if (loading) return (
+        if (loadingMore) return (
             <>
                 <Separator orientation="horizontal" className="bg-[#373A41]"/>            
                 <Button disabled className="mt-6 mb-5 w-fit">
