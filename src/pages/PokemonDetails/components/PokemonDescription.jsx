@@ -9,7 +9,7 @@ const PokemonDescription = ({ pokemon }) => {
             </div>
             <h1 className="mb-5 text-xl text-white md:mt-10 pokemon-name">About</h1>
             <p className="text-sm text-gray-400">
-                {pokemon.specie.description}
+                {pokemon.description}
             </p>
         </div>
     );

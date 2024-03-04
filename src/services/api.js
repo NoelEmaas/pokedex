@@ -51,7 +51,7 @@ export const getPokemonCompleteInfo = async (pokemonID) => {
 
         const id = response.data.id;
         const imageURL = `${POKEMON_IMAGE_BASE_URL}/${String(id).padStart(3, "0")}.png`;
-        const specieData = await getSpecieData(response.data.species.url);
+        const description = await getDescription(response.data.species.url);
         const stats = getStats(response);
         const types = response.data.types.map(type => transformString(type.type.name))
         const typesInfo = getTypeInfo(types);
@@ -63,7 +63,7 @@ export const getPokemonCompleteInfo = async (pokemonID) => {
             height: response.data.height,
             weight: response.data.weight,
             abilities:  abilitiesData.filter(data => data !== null),
-            specie: specieData,
+            description,
             stats,
             types,
             typesInfo,
@@ -90,21 +90,19 @@ const getAbilityData = async (abilityUrl) => {
     }
 }
 
-const getSpecieData = async (specieUrl) => {
+const getDescription = async (specieUrl) => {
     try {
         const response = await axios.get(specieUrl);
-        const speciData = {
-            base_happiness: response.data.base_happiness,
-            capture_rate: response.data.capture_rate,
-            color: response.data.color.name,
-            is_legendary: response.data.is_legendary,
-            is_mythical: response.data.is_mythical,
-            evolution_chain_url: response.data.evolution_chain.url,
-            description: response.data.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text
+        const entries = response.data.flavor_text_entries;
+        const englishEntry = entries.find(entry => entry.language.name === 'en');
+        if (englishEntry) {
+            const description = englishEntry.flavor_text;
+            return description;
+        } else {
+            return "No English description available.";
         }
-        return speciData;
     } catch (error) {
-        console.error('Error fetching specie data:', error);
+        console.error('Error fetching specie description:', error);
         return null;
     }
 }
