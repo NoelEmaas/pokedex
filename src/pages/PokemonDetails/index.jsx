@@ -11,6 +11,8 @@ import PokemonDescription from "@/pages/PokemonDetails/components/PokemonDescrip
 const PokemonDetails = () => {
     const { id } = useParams();
     const pokemon = useFetchPokemonDetails(id);
+    
+    console.log(pokemon);
 
     if (!pokemon) {
         return <div>Loading...</div>;
