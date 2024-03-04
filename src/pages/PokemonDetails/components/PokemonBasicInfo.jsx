@@ -9,10 +9,12 @@ const PokemonBasicInfo = ({ pokemon }) => {
 
     return (
         <div className="flex flex-col items-center w-full mt-7">
-            <p className="mb-2 font-bold text-white">#{String(pokemon.id).padStart(3, "0")}</p>
-            <h1 className="text-2xl font-bold text-white md:text-4xl mb-7 pokemon-name">
-                {transformString(pokemon.name)}
-            </h1>
+            <div className="flex flex-col items-center justify-center md:hidden">
+                <p className="mb-2 font-bold text-white">#{String(pokemon.id).padStart(3, "0")}</p>
+                <h1 className="text-2xl font-bold text-white md:text-4xl mb-7 pokemon-name">
+                    {transformString(pokemon.name)}
+                </h1>
+            </div>
             <div className="w-full bg-[#050911] border-[#373A41] flex flex-col rounded-lg border">
                 <div className="flex flex-row justify-between p-4">
                     <p className="font-bold text-white">Type</p>

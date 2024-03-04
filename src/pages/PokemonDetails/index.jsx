@@ -22,13 +22,13 @@ const PokemonDetails = () => {
         <div className='h-screen overflow-y-auto bg-[#010101]'>
             <div className="container flex flex-col items-center justify-center pt-10">
                 <NextPrevButtons id={id} />
-                <div className="flex flex-col mb-10 rounded-lg md:flex-row">
-                    <div className="bg-[#050911] border-[#373A41] border p-10">
+                <div className="flex flex-col mb-10 rounded-lg md:flex-row gap-x-[50px] gap-y-10">
+                    <div className="">
                         <PokemonImageCard pokemon={pokemon}/>
                         <PokemonBasicInfo pokemon={pokemon}/>
                     </div>
-                    <div className="bg-[#050911] md:w-[500px] w-full border-[#373A41] border md:border-l-0 p-10">
-                        <PokemonDescription description={pokemon.specie.description}/>
+                    <div className="md:w-[500px] w-full">
+                        <PokemonDescription pokemon={pokemon}/>
                         <PokemonAbilities abilities={pokemon.abilities}/>
                         <PokemonStats stats={pokemon.stats} types={pokemon.types}/>
                     </div>
