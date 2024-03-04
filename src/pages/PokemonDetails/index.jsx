@@ -10,9 +10,17 @@ import PokemonImageCard from "@/pages/PokemonDetails/components/PokemonImageCard
 import PokemonBasicInfo from "@/pages/PokemonDetails/components/PokemonBasicInfo";
 import PokemonAbilities from "@/pages/PokemonDetails/components/PokemonAbilities";
 import PokemonDescription from "@/pages/PokemonDetails/components/PokemonDescription";
+import ErrorPage from "@/pages/Error/index";
 
 const PokemonDetails = () => {
     const { id } = useParams();
+
+    if (id < 1 || id > 1010) {
+        return (
+            <ErrorPage />
+        );
+    }
+
     const [loading, setLoading] = useState(true);
     const pokemon = useFetchPokemonDetails(id, setLoading);
     
