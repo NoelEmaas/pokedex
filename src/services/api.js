@@ -49,15 +49,9 @@ export const getPokemonCompleteInfo = async (pokemonID) => {
             return await getAbilityData(abilityData.ability.url);
         }));
 
-        const movesData = await Promise.all(response.data.moves.map(async (moveData) => {
-            return await getMoveData(moveData.move.url);
-        }));
-
         const id = response.data.id;
         const imageURL = `${POKEMON_IMAGE_BASE_URL}/${String(id).padStart(3, "0")}.png`;
         const specieData = await getSpecieData(response.data.species.url);
-        const evolutionChain = await getEvolutionSequence(specieData.evolution_chain_url);
-        const encounterAreas = await getEncounterAreas(response.data.location_area_encounters);
         const stats = getStats(response);
         const types = response.data.types.map(type => transformString(type.type.name))
         const typesInfo = getTypeInfo(types);
@@ -69,10 +63,7 @@ export const getPokemonCompleteInfo = async (pokemonID) => {
             height: response.data.height,
             weight: response.data.weight,
             abilities:  abilitiesData.filter(data => data !== null),
-            moves: movesData.filter(data => data !== null),
             specie: specieData,
-            evolution_sequence: evolutionChain,
-            encounter_areas: encounterAreas,
             stats,
             types,
             typesInfo,
@@ -99,22 +90,6 @@ const getAbilityData = async (abilityUrl) => {
     }
 }
 
-const getMoveData = async (moveUrl) => {
-    try {
-        const response = await axios.get(moveUrl);
-        const moveData = {
-            name : transformString(response.data.name),
-            accuracy: response.data.accuracy,
-            power: response.data.power,
-            pp: response.data.pp,
-        }
-        return moveData;
-    } catch (error) {
-        console.error('Error fetching move data:', error);
-        return null;
-    }
-}
-
 const getSpecieData = async (specieUrl) => {
     try {
         const response = await axios.get(specieUrl);
@@ -130,41 +105,6 @@ const getSpecieData = async (specieUrl) => {
         return speciData;
     } catch (error) {
         console.error('Error fetching specie data:', error);
-        return null;
-    }
-}
-
-const getEvolutionSequence = async (evolutionChainUrl) => {
-    try {
-        const response = await axios.get(evolutionChainUrl);
-        const evolutionChain = response.data.chain;
-        const sequence = [];
-
-        // Recursively traverse the evolution chain to get the complete sequence
-        function traverseChain(chain) {
-            sequence.push(chain.species.name);
-            chain.evolves_to.forEach(evolution => {
-                traverseChain(evolution);
-            });
-        }
-
-        traverseChain(evolutionChain);
-        return sequence;
-    } catch (error) {
-        console.error('Error fetching evolution chain:', error);
-        return null;
-    }
-}
-
-const getEncounterAreas = async (locationAreaUrl) => {
-    try {
-        const response = await axios.get(locationAreaUrl);
-        const encounterAreas = response.data.map(area => {
-            return transformString(area.location_area.name);
-        });
-        return [...encounterAreas];
-    } catch (error) {
-        console.error('Error fetching encounter areas:', error);
         return null;
     }
 }

@@ -111,7 +111,7 @@ export const useTypeIconsLoader = (types) => {
 }
 
 // Fetch all pokemons and store them in local storage
-const useFetchAllPokemon = (setLoading) => {
+const useFetchAllPokemon = (setLoading = () => {}) => {
     const [fullPokemonList, setFullPokemonList] = useState([]);
     
     useEffect(() => {
