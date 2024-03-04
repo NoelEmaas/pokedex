@@ -14,6 +14,9 @@ const Home = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState('0');
     const [limit, setLimit] = useState(10);
+
+    // The loading is for the initial fetching of the pokemon list
+    // The loadingMore is for the fetching of the next 10 pokemon
     const [loading, setLoading] = useState(true);
     const [loadingMore, setLoadingMore] = useState(true);
 
